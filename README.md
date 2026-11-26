@@ -1,200 +1,269 @@
 # ⚡ DARK ASIRIS // OMNILINK
 
-**Passerelle MCP sécurisée entre ChatGPT et votre environnement de développement local.**
+**Passerelle MCP sécurisée entre ChatGPT et votre environnement de développement local Windows ou macOS.**
 
-DARK ASIRIS // OMNILINK permet à ChatGPT d'interagir avec une machine **Windows ou macOS** à travers une connexion MCP contrôlée.
+DARK ASIRIS // OMNILINK permet à ChatGPT d'interagir avec votre ordinateur à travers un serveur MCP local et un tunnel sécurisé.
 
-L'objectif est simple : pouvoir travailler sur ses projets locaux avec ChatGPT, y compris à distance, tout en conservant des mécanismes de contrôle, de sauvegarde et de validation avant et après les modifications.
+L'objectif est de pouvoir travailler avec ChatGPT directement sur vos projets locaux, y compris à distance, tout en conservant des mécanismes de contrôle, de sauvegarde, de validation et de restauration.
 
 ---
 
-## 🚀 Fonctionnalités
+# 🚀 Fonctionnalités
 
-### 💻 Accès à l'environnement local
+## 💻 Accès local contrôlé
 
 - Informations système et matérielles
 - Navigation dans les fichiers et dossiers
 - Lecture et recherche de fichiers
-- Création et modification contrôlée de fichiers
-- Détection des outils de développement installés
+- Création et modification contrôlée
+- Détection des outils de développement
 - Exécution d'actions locales autorisées
 - Accès distant via tunnel MCP
 
-### 🛠️ Développement
+## 🛠️ Développement
 
-Selon la plateforme et les outils installés sur la machine, OMNILINK peut interagir avec :
+Selon votre système et les logiciels installés :
 
-- **Git**
-- **PowerShell / CMD**
-- **Python**
-- **Node.js / npm / npx**
-- **.NET**
-- **CMake**
-- **Visual Studio**
-- **Xcode / Swift**
-- **WSL**
-- **Homebrew**
+- Git
+- PowerShell / CMD
+- Python
+- Node.js / npm / npx
+- .NET
+- CMake
+- Visual Studio
+- Xcode / Swift
+- WSL
+- Homebrew
 - Outils système Windows et macOS
 
 ---
 
-## 🧠 Project Engine
+# 🧠 Project Engine
 
-Le moteur de projet permet à ChatGPT de :
+OMNILINK peut :
 
 - détecter les projets présents sur la machine ;
 - analyser leur structure ;
 - lire les fichiers source ;
-- vérifier l'état Git ;
+- inspecter Git ;
 - lancer des builds ;
 - exécuter des tests compatibles ;
-- récupérer les sorties de compilation ;
-- analyser les erreurs de build.
+- récupérer les erreurs de compilation ;
+- fournir le contexte du projet à ChatGPT.
 
 ---
 
-## 🛡️ Coding & Transaction Engine
+# 🛡️ Coding & Transaction Engine
 
-Les modifications du code peuvent être effectuées avec une couche de sécurité supplémentaire.
+OMNILINK peut créer automatiquement un **snapshot** avant certaines modifications.
 
-Avant une modification, OMNILINK peut créer automatiquement un **snapshot du fichier original**.
-
-### Workflow
+Workflow :
 
 **Analyse → Snapshot → Modification → Build → Validation**
 
-Si une modification provoque un échec, le système peut restaurer la version sauvegardée selon le workflow utilisé.
+En cas de problème, les snapshots permettent de restaurer les fichiers précédents selon le workflow utilisé.
 
-Cela permet à ChatGPT de travailler sur un projet tout en conservant un moyen de revenir à son état précédent.
-
----
-
-## 🔀 Git
-
-L'utilisation de Git apporte un second niveau de contrôle :
-
-- historique des modifications ;
-- comparaison des fichiers ;
-- suivi des changements ;
-- baseline avant intervention ;
-- contrôle du diff après intervention ;
-- possibilité de revenir à une version connue du projet.
-
-Pour les projets importants, l'utilisation de Git est fortement recommandée avant de permettre des modifications automatisées.
+L'utilisation de **Git** est également fortement recommandée afin de disposer d'un second niveau de protection.
 
 ---
 
-# 🌐 Accès à distance
-
-OMNILINK utilise un **tunnel MCP sécurisé** entre ChatGPT et le serveur MCP exécuté localement.
+# 🌐 Comment fonctionne OMNILINK ?
 
 ```text
 ChatGPT
    │
    ▼
-DARK ASIRIS // OMNILINK
+Plugin OMNILINK
    │
    ▼
-Secure MCP Tunnel
+Tunnel OpenAI
    │
    ▼
-Ordinateur local
+tunnel-client
    │
+   ▼
+Serveur MCP OMNILINK
+   │
+   ▼
+Votre ordinateur
+   │
+   ├── Projets
    ├── Fichiers
    ├── Git
    ├── Builds
-   ├── Outils de développement
-   └── Projets
+   └── Outils de développement
 ```
 
-Lorsque l'ordinateur et le tunnel OMNILINK sont actifs, ChatGPT peut piloter les opérations exposées par OMNILINK depuis un autre appareil compatible.
-
-Cela permet notamment d'utiliser ChatGPT depuis un téléphone tout en exécutant les opérations de développement sur l'ordinateur distant.
+Le serveur MCP reste local sur votre ordinateur.
 
 ---
 
-# 📦 Téléchargement
+# 📋 Avant l'installation
 
-Téléchargez la version correspondant à votre système depuis le dépôt ou la section **Releases** :
+Chaque utilisateur doit impérativement disposer de :
 
-### 🪟 Windows
+1. son propre compte OpenAI compatible ;
+2. son propre **Tunnel ID** ;
+3. sa propre **Runtime API Key** ;
+4. OMNILINK installé sur sa machine.
 
-`DARK-ASIRIS-OMNILINK-WINDOWS-v1.0.zip`
+> ⚠️ Le Tunnel ID et la Runtime API Key sont deux éléments différents.
 
-### 🍎 macOS
-
-`DARK-ASIRIS-OMNILINK-MAC-v1.0.zip`
+Ne partagez jamais votre Runtime API Key avec une autre personne.
 
 ---
 
-# 🪟 Installation Windows
+# 🌐 ÉTAPE 1 — Créer votre Tunnel OpenAI
+
+Connectez-vous à votre compte OpenAI Platform.
+
+Ouvrez :
+
+**Settings → Organization → Tunnels**
+
+Lien officiel :
+
+https://platform.openai.com/settings/organization/tunnels
+
+Créez un nouveau tunnel.
+
+Vous pouvez lui donner par exemple le nom :
+
+`DARK ASIRIS // OMNILINK`
+
+ou :
+
+`DARK ASIRIS // OMNILINK - MON PC`
+
+Une fois créé, OpenAI fournit un identifiant ressemblant à :
+
+```text
+tunnel_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+C'est votre :
+
+**Tunnel ID**
+
+Copiez-le et conservez-le.
+
+OMNILINK vous le demandera pendant l'installation.
+
+---
+
+# 🔑 ÉTAPE 2 — Créer votre Runtime API Key
+
+Ouvrez ensuite les paramètres des clés API OpenAI :
+
+https://platform.openai.com/settings/organization/api-keys
+
+Créez une clé destinée au fonctionnement du tunnel.
+
+Lorsque les permissions sont configurables, utilisez une clé **Restricted** disposant des permissions nécessaires au tunnel, notamment :
+
+- Tunnels → Read
+- Tunnels → Use
+
+La clé obtenue ressemble à une clé OpenAI classique.
+
+C'est votre :
+
+**Runtime API Key**
+
+> ⚠️ Cette clé est secrète.
+
+Ne la mettez jamais :
+
+- dans GitHub ;
+- dans le README ;
+- dans un message Discord ;
+- dans une capture d'écran ;
+- dans un fichier public.
+
+Chaque utilisateur doit générer **sa propre Runtime API Key**.
+
+---
+
+# 📦 ÉTAPE 3 — Télécharger OMNILINK
+
+Téléchargez la version correspondant à votre système depuis **Releases**.
+
+## 🪟 Windows
+
+```text
+DARK-ASIRIS-OMNILINK-WINDOWS-v1.0.zip
+```
+
+## 🍎 macOS
+
+```text
+DARK-ASIRIS-OMNILINK-MAC-v1.0.zip
+```
+
+Extrayez complètement l'archive avant de continuer.
+
+---
+
+# 🪟 INSTALLATION WINDOWS
 
 ## Prérequis
 
 - Windows 10 ou Windows 11
 - Python 3
 - Connexion Internet
-- Compte ChatGPT/OpenAI compatible avec les tunnels MCP
-- Votre propre **Runtime API Key**
-- Votre propre **Tunnel ID**
-
-Les outils supplémentaires comme Git, .NET, Node.js ou Visual Studio ne sont nécessaires que pour les fonctionnalités qui les utilisent.
+- Tunnel ID créé à l'étape 1
+- Runtime API Key créée à l'étape 2
 
 ---
 
-## 1. Extraire l'archive
+## 1. Ouvrir PowerShell
 
-Téléchargez :
+Ouvrez PowerShell dans le dossier OMNILINK extrait.
 
-`DARK-ASIRIS-OMNILINK-WINDOWS-v1.0.zip`
-
-Puis extrayez complètement son contenu dans un dossier local.
-
----
-
-## 2. Ouvrir PowerShell
-
-Ouvrez PowerShell dans le dossier extrait.
-
-Autorisez temporairement l'exécution des scripts pour cette session :
+Exécutez :
 
 ```powershell
 Set-ExecutionPolicy -Scope Process Bypass
 ```
 
-Cette modification concerne uniquement la session PowerShell actuelle.
+Cette autorisation est limitée à la session PowerShell actuelle.
 
 ---
 
-## 3. Installer OMNILINK
-
-Exécutez :
+## 2. Lancer l'installation
 
 ```powershell
 .\SETUP-OMNILINK.ps1
 ```
 
-Le programme d'installation prépare automatiquement :
+Le setup prépare automatiquement :
 
 - l'environnement Python ;
+- l'environnement virtuel ;
 - les dépendances MCP ;
-- le tunnel-client ;
-- les dossiers nécessaires ;
-- le profil OMNILINK ;
-- la configuration locale.
+- tunnel-client ;
+- la configuration locale ;
+- les dossiers OMNILINK.
 
-Pendant l'installation, OMNILINK demandera notamment :
+Le programme demandera :
 
-- votre **Tunnel ID** ;
-- votre **Runtime API Key**.
+```text
+Tunnel ID OpenAI:
+```
 
-> ⚠️ Utilisez toujours **votre propre Tunnel ID et votre propre Runtime API Key**.
+Collez le Tunnel ID créé précédemment.
 
-Ne partagez jamais ceux d'une autre personne.
+Puis :
+
+```text
+Runtime API key OpenAI:
+```
+
+Collez votre propre Runtime API Key.
 
 ---
 
-## 4. Démarrer OMNILINK
+## 3. Démarrer OMNILINK
 
 Une fois l'installation terminée :
 
@@ -202,41 +271,25 @@ Une fois l'installation terminée :
 .\START-OMNILINK.ps1
 ```
 
-Le serveur MCP local et le tunnel OMNILINK seront alors démarrés.
+Le serveur MCP local sera lancé.
 
-Le serveur MCP écoute localement sur :
+Adresse locale :
 
-`127.0.0.1:8000`
+```text
+127.0.0.1:8000
+```
 
----
+Endpoint MCP :
 
-## 5. Connecter ChatGPT
+```text
+http://127.0.0.1:8000/mcp
+```
 
-Dans ChatGPT, créez ou configurez votre plugin/connexion MCP :
-
-**Nom recommandé :**
-
-`DARK ASIRIS // OMNILINK WINDOWS`
-
-**Connexion :**
-
-`Tunnel`
-
-**Tunnel :**
-
-Sélectionnez votre propre tunnel OMNILINK.
-
-**Authentification :**
-
-`Sans authentification`
-
-Une fois connecté, ChatGPT pourra découvrir les outils exposés par votre instance locale.
+Puis tunnel-client établira la connexion avec votre tunnel OpenAI.
 
 ---
 
-## 6. Arrêter OMNILINK
-
-Pour arrêter proprement l'instance Windows :
+## 4. Arrêter OMNILINK
 
 ```powershell
 .\STOP-OMNILINK.ps1
@@ -244,34 +297,14 @@ Pour arrêter proprement l'instance Windows :
 
 ---
 
-## 🔐 Vérification Windows
-
-### SHA-256
-
-```text
-9404d524b0df271139e943127195bb422b75f1e957e606ef7cd4bc3926d7f2b7
-```
-
-Vous pouvez vérifier l'intégrité du ZIP avec PowerShell :
-
-```powershell
-Get-FileHash ".\DARK-ASIRIS-OMNILINK-WINDOWS-v1.0.zip" -Algorithm SHA256
-```
-
-Le hash retourné doit correspondre exactement à celui indiqué ci-dessus.
-
----
-
-# 🍎 Installation macOS
+# 🍎 INSTALLATION macOS
 
 ## Compatibilité
 
-La version macOS est prévue pour :
+- Apple Silicon M1 / M2 / M3 / M4 / M5
+- Mac Intel
 
-- **Apple Silicon** : M1, M2, M3, M4, M5
-- **Mac Intel**
-
-Le setup détecte automatiquement l'architecture du Mac afin de sélectionner le composant tunnel correspondant.
+Le setup détecte automatiquement l'architecture.
 
 ---
 
@@ -280,11 +313,8 @@ Le setup détecte automatiquement l'architecture du Mac afin de sélectionner le
 - macOS
 - Python 3
 - Connexion Internet
-- Compte ChatGPT/OpenAI compatible avec les tunnels MCP
-- Votre propre **Runtime API Key**
-- Votre propre **Tunnel ID**
-
-Xcode, Swift, Homebrew, Git, Node.js, .NET et CMake sont détectés lorsqu'ils sont présents.
+- Tunnel ID créé à l'étape 1
+- Runtime API Key créée à l'étape 2
 
 ---
 
@@ -292,32 +322,47 @@ Xcode, Swift, Homebrew, Git, Node.js, .NET et CMake sont détectés lorsqu'ils s
 
 Téléchargez :
 
-`DARK-ASIRIS-OMNILINK-MAC-v1.0.zip`
+```text
+DARK-ASIRIS-OMNILINK-MAC-v1.0.zip
+```
 
-Puis extrayez complètement l'archive.
+Extrayez complètement le dossier.
 
 ---
 
 ## 2. Installer OMNILINK
 
-Dans le dossier extrait, effectuez un clic droit sur :
+Effectuez un clic droit sur :
 
-`SETUP.command`
+```text
+SETUP.command
+```
 
-puis choisissez :
+puis :
 
 **Ouvrir**
 
-Le programme prépare automatiquement l'environnement OMNILINK et télécharge le tunnel-client correspondant à l'architecture du Mac.
+Le programme prépare automatiquement :
 
-Pendant l'installation, utilisez :
+- l'environnement Python ;
+- les dépendances ;
+- tunnel-client pour votre architecture ;
+- le profil OMNILINK ;
+- la configuration locale.
 
-- **votre propre Tunnel ID** ;
-- **votre propre Runtime API Key**.
+Lorsque demandé, entrez votre :
 
-> ⚠️ N'utilisez jamais le Tunnel ID ou la Runtime API Key d'une autre personne.
+```text
+Tunnel ID
+```
 
-La Runtime API Key est stockée dans le **Trousseau macOS**.
+puis votre :
+
+```text
+Runtime API Key
+```
+
+La Runtime API Key est enregistrée dans le **Trousseau macOS**.
 
 ---
 
@@ -325,134 +370,245 @@ La Runtime API Key est stockée dans le **Trousseau macOS**.
 
 Double-cliquez sur :
 
-`START-OMNILINK.command`
+```text
+START-OMNILINK.command
+```
 
-Le serveur MCP local sera démarré sur :
+Le serveur MCP démarre localement sur :
 
-`127.0.0.1:8000`
+```text
+127.0.0.1:8000
+```
 
-puis le tunnel sera connecté.
+avec l'endpoint :
 
----
+```text
+http://127.0.0.1:8000/mcp
+```
 
-## 4. Connecter ChatGPT
-
-Créez votre connexion dans ChatGPT :
-
-**Nom recommandé :**
-
-`DARK ASIRIS // OMNILINK MAC`
-
-**Connexion :**
-
-`Tunnel`
-
-**Tunnel :**
-
-Sélectionnez le tunnel créé pour votre Mac.
-
-**Authentification :**
-
-`Sans authentification`
+Le tunnel OpenAI est ensuite démarré.
 
 ---
 
-## 5. Arrêter OMNILINK
+## 4. Arrêter OMNILINK
 
-Pour arrêter l'instance macOS :
+Exécutez :
 
-`STOP-OMNILINK.command`
+```text
+STOP-OMNILINK.command
+```
 
 ---
 
-## 🔐 Vérification macOS
+# 🤖 ÉTAPE 4 — Ajouter OMNILINK dans ChatGPT
 
-### SHA-256
+Une fois :
+
+- OMNILINK démarré ;
+- le serveur MCP actif ;
+- tunnel-client connecté ;
+
+ouvrez ChatGPT.
+
+Accédez aux paramètres des connecteurs/plugins.
+
+Créez une nouvelle connexion.
+
+## Nom recommandé Windows
+
+```text
+DARK ASIRIS // OMNILINK WINDOWS
+```
+
+## Nom recommandé macOS
+
+```text
+DARK ASIRIS // OMNILINK MAC
+```
+
+## Type de connexion
+
+```text
+Tunnel
+```
+
+## Tunnel
+
+Sélectionnez le tunnel créé à **l'étape 1**.
+
+## Authentification
+
+```text
+Sans authentification
+```
+
+Validez ensuite la connexion.
+
+ChatGPT doit alors découvrir automatiquement les outils MCP exposés par OMNILINK.
+
+---
+
+# ✅ ÉTAPE 5 — Vérifier la connexion
+
+Dans un nouveau chat, activez OMNILINK.
+
+Demandez :
+
+```text
+Utilise OMNILINK et vérifie son statut.
+```
+
+Puis :
+
+```text
+Utilise tool_inventory et liste les outils détectés sur mon ordinateur.
+```
+
+Si OMNILINK retourne les informations de votre ordinateur, la connexion fonctionne.
+
+---
+
+# 📱 Utilisation depuis un téléphone
+
+Lorsque :
+
+- votre ordinateur est allumé ;
+- OMNILINK est lancé ;
+- tunnel-client est connecté ;
+- votre connexion OMNILINK est disponible dans ChatGPT ;
+
+vous pouvez utiliser ChatGPT depuis un autre appareil compatible pour demander à OMNILINK d'effectuer des opérations sur l'ordinateur distant.
+
+Exemple :
+
+```text
+Analyse mon projet et vérifie son état Git.
+```
+
+Les commandes sont exécutées sur l'ordinateur sur lequel OMNILINK fonctionne.
+
+---
+
+# 🔐 SÉCURITÉ
+
+OMNILINK n'a pas vocation à donner à ChatGPT un accès administrateur illimité.
+
+Le projet privilégie :
+
+- des outils MCP ciblés ;
+- des commandes contrôlées ;
+- des snapshots avant modification ;
+- la validation des chemins ;
+- des limites opérationnelles ;
+- la journalisation ;
+- Git comme second niveau de protection.
+
+---
+
+## ⚠️ Ne publiez jamais vos secrets
+
+Ne publiez jamais :
+
+```text
+Runtime API Key
+OpenAI API Key
+GitHub Token
+Mot de passe
+.env contenant des secrets
+Clés privées
+Credentials
+```
+
+Chaque utilisateur doit utiliser ses **propres identifiants**.
+
+---
+
+# 🔐 Vérification des téléchargements
+
+## 🪟 Windows v1.0
+
+SHA-256 :
+
+```text
+9404d524b0df271139e943127195bb422b75f1e957e606ef7cd4bc3926d7f2b7
+```
+
+Vérification :
+
+```powershell
+Get-FileHash ".\DARK-ASIRIS-OMNILINK-WINDOWS-v1.0.zip" -Algorithm SHA256
+```
+
+---
+
+## 🍎 macOS v1.0
+
+SHA-256 :
 
 ```text
 dc18077db5f5d4045d7d73f468cf87d2c8e882a8a02949613932f093a99e5b77
 ```
 
-Sur macOS, le fichier peut être vérifié avec :
+Vérification :
 
 ```bash
 shasum -a 256 DARK-ASIRIS-OMNILINK-MAC-v1.0.zip
 ```
 
-Le hash obtenu doit être identique à celui indiqué ci-dessus.
+---
+
+# 🆘 Dépannage
+
+## Le serveur MCP ne répond pas
+
+Vérifiez que le port local est disponible :
+
+```text
+127.0.0.1:8000
+```
 
 ---
 
-# 🔐 Sécurité
+## ChatGPT ne voit pas les nouveaux outils
 
-OMNILINK n'a pas vocation à fournir un accès administrateur illimité à ChatGPT.
+Redémarrez :
 
-Le projet privilégie :
-
-- des outils MCP aux responsabilités précises ;
-- des commandes contrôlées ;
-- des snapshots avant certaines éditions ;
-- la validation des chemins ;
-- des limites sur certaines opérations ;
-- la journalisation des modifications ;
-- Git comme niveau de protection supplémentaire ;
-- un serveur MCP accessible uniquement localement ;
-- un tunnel sortant vers ChatGPT.
+1. OMNILINK ;
+2. tunnel-client ;
+3. puis reconnectez/actualisez votre connexion OMNILINK dans ChatGPT.
 
 ---
 
-## ⚠️ Secrets et identifiants
+## Le tunnel n'apparaît pas
 
-Ne publiez **jamais** dans GitHub :
+Vérifiez :
 
-- Runtime API Key ;
-- clés API privées ;
-- tokens GitHub ;
-- mots de passe ;
-- fichiers `.env` contenant des secrets ;
-- identifiants personnels ;
-- fichiers de configuration générés contenant des informations sensibles.
-
-Chaque utilisateur d'OMNILINK doit utiliser **ses propres identifiants et son propre tunnel**.
+- que le Tunnel ID utilisé pendant le setup est correct ;
+- que la Runtime API Key appartient au bon compte/organisation ;
+- que tunnel-client fonctionne ;
+- que votre compte dispose des permissions nécessaires au tunnel.
 
 ---
 
-# 📱 Utilisation à distance
-
-Lorsque :
-
-- l'ordinateur est allumé ;
-- OMNILINK fonctionne ;
-- le tunnel est connecté ;
-- le plugin est disponible dans ChatGPT ;
-
-les opérations exposées par OMNILINK peuvent être pilotées depuis ChatGPT sur un autre appareil compatible.
-
-Le travail est exécuté sur la machine hébergeant OMNILINK.
-
----
-
-# ⚠️ Projet en développement
+# ⚠️ PROJET EN DÉVELOPPEMENT
 
 DARK ASIRIS // OMNILINK est actuellement en développement actif.
 
-Certaines fonctionnalités peuvent évoluer rapidement et les versions Windows et macOS peuvent ne pas proposer exactement les mêmes outils.
+Avant toute intervention importante sur un projet :
 
-Il est fortement recommandé :
-
-1. d'utiliser Git ;
-2. d'avoir une baseline propre ;
-3. de vérifier les diffs ;
-4. de conserver les snapshots ;
-5. de valider les builds après modification.
+1. utilisez Git ;
+2. créez une baseline ;
+3. vérifiez votre diff ;
+4. conservez les snapshots ;
+5. validez le build après modification.
 
 ---
 
-# 📜 Licence
+# 📜 LICENCE
 
 **Aucune licence open source n'est actuellement accordée.**
 
-La publication du code ou des packages ne constitue pas automatiquement une autorisation de modification, redistribution ou utilisation commerciale.
+La présence publique du code et des packages ne constitue pas automatiquement une autorisation de modification, redistribution ou utilisation commerciale.
 
 **Tous droits réservés sauf autorisation explicite du propriétaire du projet.**
 
